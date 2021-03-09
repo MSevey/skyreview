@@ -1,6 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from 'react';
+import { Container, Header, Tab } from 'semantic-ui-react';
+import Review from './components/Review';
+// Import Web Assembly
+//
 // Satisfy eslint
 /*global Go, SayHello*/
 const go = new Go();
@@ -8,27 +10,76 @@ const go = new Go();
 WebAssembly.instantiateStreaming(fetch('main.wasm'), go.importObject).then(
   (result) => {
     go.run(result.instance);
-    console.log(SayHello());
   }
 );
+
 function App() {
+  // App State
+  const [copied, setCopied] = useState(false);
+  const [dataKey, setDataKey] = useState('');
+  const [registryURI, setRegistryURI] = useState('');
+  const [seed, setSeed] = useState('');
+  const [skylink, setSkylink] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
+  const [name, setName] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    SayHello();
+  };
+
+  // handleSelectTab handles switching views
+  const handleSelectTab = (e, { activeIndex }) => {
+    setActiveTab(activeIndex);
+  };
+
+  // define args passed to the review form
+  const formProps = {
+    handleSubmit,
+    name,
+    seed,
+    dataKey,
+    setDataKey,
+    setName,
+    setSeed,
+    activeTab,
+    loading,
+  };
+  const panes = [
+    {
+      menuItem: 'Write a Review',
+      render: () => (
+        <Tab.Pane>
+          <Review {...formProps} />
+        </Tab.Pane>
+      ),
+    },
+    {
+      menuItem: 'View Reviews',
+      render: () => (
+        <Tab.Pane>
+          <Review {...formProps} />
+        </Tab.Pane>
+      ),
+    },
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Header
+        as="h1"
+        content="Skynet Reviews"
+        textAlign="center"
+        style={{ marginTop: '1em', marginBottom: '1em' }}
+      />
+      <Tab
+        menu={{ fluid: true, vertical: true, tabular: true }}
+        panes={panes}
+        onTabChange={handleSelectTab}
+        activeIndex={activeTab}
+      />
+    </Container>
   );
 }
 

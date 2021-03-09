@@ -10,7 +10,8 @@ func main() {
 
 func sayHello() js.Func {
 	return js.FuncOf(func(js.Value, []js.Value) interface{} {
-		return "Hello From Go"
+		println("Hello From Go")
+		return nil
 	})
 }
 
