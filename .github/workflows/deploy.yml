@@ -1,0 +1,39 @@
+name: skyreview CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Run Tests
+        run: yarn test
+
+      - name: "Static code analysis: src/"
+        run: yarn prettier --check ./src
+
+      - name: "Static code analysis: public/"
+        run: yarn prettier --check ./public
+
+      - name: "Build SkyReview"
+        run: yarn build
+
+      - name: "Deploy to Skynet"
+        uses: kwypchlo/deploy-to-skynet-action@main
+        with:
+          upload-dir: build
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          registry-seed: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && secrets.REGISTRY_SEED || '' }}
