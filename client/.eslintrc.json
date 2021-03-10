@@ -4,7 +4,12 @@
     "browser": true,
     "mocha": true
   },
-    "parserOptions": {
-        "sourceType": "module"
-    }
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    },
+    "sourceType": "module"
+  }
 }

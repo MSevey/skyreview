@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Container, Header, Tab } from 'semantic-ui-react';
-import Review from './components/Review';
+import { PostReview, ViewReview } from './components/Review';
 // Import Web Assembly
 //
 // Satisfy eslint
@@ -51,7 +51,7 @@ function App() {
       menuItem: 'Write a Review',
       render: () => (
         <Tab.Pane>
-          <Review {...formProps} />
+          <PostReview {...formProps} />
         </Tab.Pane>
       ),
     },
@@ -59,14 +59,14 @@ function App() {
       menuItem: 'View Reviews',
       render: () => (
         <Tab.Pane>
-          <Review {...formProps} />
+          <ViewReview {...formProps} />
         </Tab.Pane>
       ),
     },
   ];
 
   return (
-    <Container>
+    <Container style={{ paddingTop: '1em' }}>
       <Header
         as="h1"
         content="Skynet Reviews"
