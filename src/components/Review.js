@@ -20,6 +20,7 @@ const checkBoxes = (props) => {
     let val = i.toString();
     cbs.push(
       <Form.Field
+        key={val}
         control={Radio}
         label={starIcons(i)}
         value={val}
@@ -66,9 +67,9 @@ const SeedInput = (props) => {
       control={Input}
       label="Seed"
       placeholder="Seed"
-      value={props.dataKey}
+      value={props.seed}
       onChange={(e) => {
-        props.setDataKey(e.target.value);
+        props.setSeed(e.target.value);
       }}
     />
   );
@@ -78,7 +79,7 @@ const SeedInput = (props) => {
 const starIcons = (num) => {
   let stars = [];
   for (let i = 0; i < num; ++i) {
-    stars.push(<Icon name="star" />);
+    stars.push(<Icon key={i.toString()} name="star" />);
   }
   return stars;
 };
@@ -127,6 +128,7 @@ export const PostReview = (props) => {
           control={TextArea}
           label="Review"
           placeholder="Write your review..."
+          value={props.text}
           onChange={(e) => {
             props.setText(e.target.value);
           }}
@@ -160,19 +162,14 @@ export const ViewReview = (props) => {
           <Comment.Content>
             <Comment.Author>{props.name}</Comment.Author>
             <Comment.Metadata>
-              <div>Posted on: {props.data}</div>
+              <div>Posted on: {props.date}</div>
               <div>{starIcons(parseInt(props.stars))}</div>
             </Comment.Metadata>
             <Comment.Text>{props.text}</Comment.Text>
             <Comment.Actions>
-              {/* Reply should create a new review and list this review as a repliedTo field 
-              https://react.semantic-ui.com/views/comment/#content-reply-form
-              */}
-              <Comment.Action>Reply</Comment.Action>
-              {/* Save should add review to list of saved reviews */}
-              <Comment.Action>Save</Comment.Action>
-              {/* Hide should add review to list of hidden reviews */}
-              <Comment.Action>Hide</Comment.Action>
+              <Comment.Action onClick={props.handleReply}>Reply</Comment.Action>
+              <Comment.Action onClick={props.handleSave}>Save</Comment.Action>
+              <Comment.Action onClick={props.handleHide}>Hide</Comment.Action>
             </Comment.Actions>
           </Comment.Content>
         </Comment>

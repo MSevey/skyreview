@@ -23,12 +23,12 @@ function App() {
     event.preventDefault();
     setLoading(true);
     let d = new Date();
-    setDate(d);
+    setDate(d.toDateString());
 
     // Print out state
     console.log('avatarLink:', avatarLink);
     console.log('dataKey:', dataKey);
-    console.log('date:', d);
+    console.log('date:', d.toDateString());
     console.log('name:', name);
     console.log('seed:', seed);
     console.log('stars:', stars);
@@ -47,6 +47,29 @@ function App() {
     event.preventDefault();
     setLoading(true);
 
+    setLoading(false);
+  };
+
+  // Hide should add review to list of hidden reviews
+  const handleHide = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    console.log('TODO: handle hide');
+    setLoading(false);
+  };
+  //  Reply should create a new review and list this review as a repliedTo field
+  //         https://react.semantic-ui.com/views/comment/#content-reply-form
+  const handleReply = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    console.log('TODO: handle reply');
+    setLoading(false);
+  };
+  // Save should add review to list of saved reviews
+  const handleSave = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    console.log('TODO: handle save');
     setLoading(false);
   };
 
@@ -72,7 +95,10 @@ function App() {
     loading,
 
     // App handles
+    handleHide,
     handleLoad,
+    handleReply,
+    handleSave,
     handleSubmit,
   };
   const panes = [
