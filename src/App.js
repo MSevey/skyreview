@@ -1,17 +1,6 @@
 import { useState } from 'react';
 import { Container, Header, Tab } from 'semantic-ui-react';
 import { PostReview, ViewReview } from './components/Review';
-// Import Web Assembly
-//
-// Satisfy eslint
-/*global Go, SayHello*/
-const go = new Go();
-
-WebAssembly.instantiateStreaming(fetch('main.wasm'), go.importObject).then(
-  (result) => {
-    go.run(result.instance);
-  }
-);
 
 function App() {
   // User State
@@ -35,7 +24,6 @@ function App() {
     setLoading(true);
     let d = new Date();
     setDate(d);
-    SayHello();
 
     // Print out state
     console.log('avatarLink:', avatarLink);
