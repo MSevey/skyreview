@@ -14,19 +14,39 @@ WebAssembly.instantiateStreaming(fetch('main.wasm'), go.importObject).then(
 );
 
 function App() {
-  // App State
-  const [copied, setCopied] = useState(false);
+  // User State
+  const [avatarLink, setAvatarLink] = useState('');
   const [dataKey, setDataKey] = useState('');
-  const [registryURI, setRegistryURI] = useState('');
+  const [date, setDate] = useState(null);
+  const [name, setName] = useState('');
   const [seed, setSeed] = useState('');
-  const [skylink, setSkylink] = useState('');
+  const [stars, setStars] = useState('');
+  const [text, setText] = useState('');
+
+  // App State
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
-  const [name, setName] = useState('');
 
+  // App handlers
+  //
+  // handleSubmit is the main handler for the review form being submitted
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
+    let d = new Date();
+    setDate(d);
     SayHello();
+
+    // Print out state
+    console.log('avatarLink:', avatarLink);
+    console.log('dataKey:', dataKey);
+    console.log('date:', d);
+    console.log('name:', name);
+    console.log('seed:', seed);
+    console.log('stars:', stars);
+    console.log('text:', text);
+
+    setLoading(false);
   };
 
   // handleSelectTab handles switching views
@@ -34,17 +54,38 @@ function App() {
     setActiveTab(activeIndex);
   };
 
+  //handleLoad handles loading the users data
+  const handleLoad = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+
+    setLoading(false);
+  };
+
   // define args passed to the review form
   const formProps = {
-    handleSubmit,
-    name,
-    seed,
+    // User State
+    avatarLink,
+    setAvatarLink,
     dataKey,
     setDataKey,
+    date,
+    setDate,
+    name,
     setName,
+    seed,
     setSeed,
-    activeTab,
+    stars,
+    setStars,
+    text,
+    setText,
+
+    // App State
     loading,
+
+    // App handles
+    handleLoad,
+    handleSubmit,
   };
   const panes = [
     {
