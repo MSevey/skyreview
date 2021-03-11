@@ -1,4 +1,4 @@
-# Sky Reivew
+# Sky Review
 
 Basic Review Writing and viewing Skynet Application.
 

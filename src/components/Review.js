@@ -103,6 +103,27 @@ export const PostReview = (props) => {
         <Form.Group widths="equal">
           <Form.Field
             control={Input}
+            label="Skapp"
+            placeholder="Skapp"
+            value={props.skapp}
+            onChange={(e) => {
+              props.setSkapp(e.target.value);
+            }}
+          />
+          <Form.Field
+            required
+            control={Input}
+            label="Review ID"
+            placeholder="ID"
+            value={props.id}
+            onChange={(e) => {
+              props.setID(e.target.value);
+            }}
+          />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <Form.Field
+            control={Input}
             label="Name"
             placeholder="Name"
             value={props.name}
@@ -146,16 +167,6 @@ export const PostReview = (props) => {
 export const ViewReview = (props) => {
   return (
     <Segment>
-      <Loading {...props} />
-      <Header as="h4">Reviews</Header>
-      <Form onSubmit={props.handleLoad}>
-        <Form.Group inline>
-          <SeedInput {...props} />
-          <DataKeyInput {...props} />
-          <Form.Field control={Button}>Load Reviews</Form.Field>
-        </Form.Group>
-      </Form>
-      <Divider />
       <Comment.Group>
         <Comment>
           <Comment.Avatar as="a" src={props.avatarLink} />
@@ -174,6 +185,22 @@ export const ViewReview = (props) => {
           </Comment.Content>
         </Comment>
       </Comment.Group>
+    </Segment>
+  );
+};
+
+export const ViewReviewHeader = (props) => {
+  return (
+    <Segment>
+      <Loading {...props} />
+      <Header as="h4">Reviews</Header>
+      <Form onSubmit={props.handleLoad}>
+        <Form.Group inline>
+          <SeedInput {...props} />
+          <DataKeyInput {...props} />
+          <Form.Field control={Button}>Load Reviews</Form.Field>
+        </Form.Group>
+      </Form>
     </Segment>
   );
 };

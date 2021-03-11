@@ -22,16 +22,16 @@ jobs:
       # - name: Run Tests
       #   run: yarn test
 
-      - name: "Static code analysis: src/"
+      - name: 'Static code analysis: src/'
         run: yarn prettier --check ./src
 
-      - name: "Static code analysis: public/"
+      - name: 'Static code analysis: public/'
         run: yarn prettier --check ./public
 
-      - name: "Build SkyReview"
+      - name: 'Build SkyReview'
         run: yarn build
 
-      - name: "Deploy to Skynet"
+      - name: 'Deploy to Skynet'
         uses: kwypchlo/deploy-to-skynet-action@main
         with:
           upload-dir: build

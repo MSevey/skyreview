@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import { Container, Header, Tab } from 'semantic-ui-react';
-import { PostReview, ViewReview } from './components/Review';
+import { PostReview, ViewReview, ViewReviewHeader } from './components/Review';
+
+let reviews = [];
 
 function App() {
   // User State
   const [avatarLink, setAvatarLink] = useState('');
   const [dataKey, setDataKey] = useState('');
   const [date, setDate] = useState(null);
+  const [id, setID] = useState('');
   const [name, setName] = useState('');
   const [seed, setSeed] = useState('');
+  const [skapp, setSkapp] = useState('');
   const [stars, setStars] = useState('');
   const [text, setText] = useState('');
 
@@ -26,14 +30,18 @@ function App() {
     setDate(d.toDateString());
 
     // Print out state
-    console.log('avatarLink:', avatarLink);
-    console.log('dataKey:', dataKey);
-    console.log('date:', d.toDateString());
-    console.log('name:', name);
-    console.log('seed:', seed);
-    console.log('stars:', stars);
-    console.log('text:', text);
-
+    reviews.push({
+      avatarLink: avatarLink,
+      dataKey: dataKey,
+      date: d.toDateString(),
+      id: id,
+      name: name,
+      seed: seed,
+      skapp: skapp,
+      stars: stars,
+      text: text,
+    });
+    console.log('reviews:', reviews);
     setLoading(false);
   };
 
@@ -46,7 +54,7 @@ function App() {
   const handleLoad = async (event) => {
     event.preventDefault();
     setLoading(true);
-
+    console.log('TODO: handle load');
     setLoading(false);
   };
 
@@ -82,10 +90,14 @@ function App() {
     setDataKey,
     date,
     setDate,
+    id,
+    setID,
     name,
     setName,
     seed,
     setSeed,
+    skapp,
+    setSkapp,
     stars,
     setStars,
     text,
@@ -101,6 +113,19 @@ function App() {
     handleSave,
     handleSubmit,
   };
+
+  const viewReviews = () => {
+    if (!reviews) {
+      return;
+    }
+    let views = [];
+    reviews.forEach((review) => {
+      // TODO: need better UID for key
+      views.push(<ViewReview key={views.length} {...review} />);
+    });
+    return views;
+  };
+
   const panes = [
     {
       menuItem: 'Write a Review',
@@ -114,7 +139,8 @@ function App() {
       menuItem: 'View Reviews',
       render: () => (
         <Tab.Pane>
-          <ViewReview {...formProps} />
+          <ViewReviewHeader {...formProps} />
+          {viewReviews()}
         </Tab.Pane>
       ),
     },
