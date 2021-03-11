@@ -1,17 +1,24 @@
 import { useState } from 'react';
 import { Container, Header, Tab } from 'semantic-ui-react';
-import { PostReview, ViewReview, ViewReviewHeader } from './components/Review';
+import { ReviewForm, ViewReview, ViewReviewHeader } from './components/Review';
+import { PostReview, ViewReviews } from './components/ReviewHandler.ts';
 
 let reviews = [];
 
+// TODO: Publish components as a package
+
 function App() {
   // User State
-  const [avatarLink, setAvatarLink] = useState('');
   const [dataKey, setDataKey] = useState('');
+  const [seed, setSeed] = useState('');
+
+  // Review State
+  //
+  // TODO: can this be replace with a state of type Review?
+  const [avatarLink, setAvatarLink] = useState('');
   const [date, setDate] = useState(null);
   const [id, setID] = useState('');
   const [name, setName] = useState('');
-  const [seed, setSeed] = useState('');
   const [skapp, setSkapp] = useState('');
   const [stars, setStars] = useState('');
   const [text, setText] = useState('');
@@ -30,18 +37,23 @@ function App() {
     setDate(d.toDateString());
 
     // Print out state
-    reviews.push({
-      avatarLink: avatarLink,
-      dataKey: dataKey,
-      date: d.toDateString(),
-      id: id,
-      name: name,
-      seed: seed,
-      skapp: skapp,
-      stars: stars,
-      text: text,
-    });
-    console.log('reviews:', reviews);
+    try {
+      await PostReview(
+        {
+          avatarLink: avatarLink,
+          date: d.toDateString(),
+          id: id,
+          name: name,
+          skapp: skapp,
+          stars: stars,
+          text: text,
+        },
+        dataKey,
+        seed
+      );
+    } catch (error) {
+      console.log('error from handleSubmit', error);
+    }
     setLoading(false);
   };
 
@@ -54,7 +66,13 @@ function App() {
   const handleLoad = async (event) => {
     event.preventDefault();
     setLoading(true);
-    console.log('TODO: handle load');
+    try {
+      const data = await ViewReviews(dataKey, seed);
+      reviews = data;
+      console.log(data);
+    } catch (error) {
+      console.log('error from handleLoad', error);
+    }
     setLoading(false);
   };
 
@@ -81,7 +99,10 @@ function App() {
     setLoading(false);
   };
 
+  // TODO: add handle Delete
+
   // define args passed to the review form
+  // TODO: Break down props to individual needs
   const formProps = {
     // User State
     avatarLink,
@@ -131,7 +152,7 @@ function App() {
       menuItem: 'Write a Review',
       render: () => (
         <Tab.Pane>
-          <PostReview {...formProps} />
+          <ReviewForm {...formProps} />
         </Tab.Pane>
       ),
     },

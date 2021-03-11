@@ -13,6 +13,8 @@ import {
   TextArea,
 } from 'semantic-ui-react';
 
+// TODO: Update to typescript
+
 // checkBoxes returns a star check boxes from 1 to 5 stars
 const checkBoxes = (props) => {
   let cbs = [];
@@ -84,13 +86,13 @@ const starIcons = (num) => {
   return stars;
 };
 
-// PostReview is the component used for posting a review
+// ReviewForm is the form component used for posting a review
 /*
 TODO:
   - Add Skapp name/link
   - Add object name/link (what is being reviewed)
 */
-export const PostReview = (props) => {
+export const ReviewForm = (props) => {
   return (
     <Segment>
       <Loading {...props} />
