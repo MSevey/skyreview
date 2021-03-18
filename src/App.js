@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Container, Header, Tab } from 'semantic-ui-react';
 import { ReviewForm, ViewReview, ViewReviewHeader } from './components/Review';
-import { PostReview, ViewReviews } from './components/ReviewHandler.ts';
+import { PostReview, ViewReviews } from 'skynet-review';
 
 let reviews = [];
 
