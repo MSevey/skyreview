@@ -13,8 +13,6 @@ import {
   TextArea,
 } from 'semantic-ui-react';
 
-// TODO: Update to typescript
-
 // checkBoxes returns a star check boxes from 1 to 5 stars
 const checkBoxes = (props) => {
   let cbs = [];
