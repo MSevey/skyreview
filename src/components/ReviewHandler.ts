@@ -25,7 +25,9 @@ export const PostReview = async (
   // Try and load current reviews from skyDB
   try {
     const data = await viewReviews(publicKey, dataKey);
-    json.push(...data);
+    if (data) {
+      json.push(...data);
+    }
   } catch (error) {
     console.log(error);
     return error;
