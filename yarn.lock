@@ -9929,6 +9929,13 @@ skynet-js@^3.0.0:
     url-join "^4.0.1"
     url-parse "^1.4.7"
 
+skynet-review@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/skynet-review/-/skynet-review-1.0.0.tgz#d9a628fc4476e0b5b107fb2119fbe8e572bc4d9c"
+  integrity sha512-XTXescAsiFqZPmt5fDloWOtSAbymiuj5gZVvXGLD6KEURvw9jLEaXx4Q3e5ttD187hqTo5zLC2PFRzpJ2FlKqA==
+  dependencies:
+    skynet-js "^3.0.0"
+
 slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"

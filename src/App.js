@@ -5,8 +5,6 @@ import { PostReview, ViewReviews } from 'skynet-review';
 
 let reviews = [];
 
-// TODO: Publish components as a package
-
 function App() {
   // User State
   const [dataKey, setDataKey] = useState('');
